@@ -1,0 +1,187 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rfstack-cm
+  namespace: {{ .Values.NS_PREFIX }}-system
+data:
+  api-conf: |-
+    {
+      "rfserver": {
+        "isOutsideCluster": true,
+        "port": 8088,
+        "provider": {
+          "endpoint": "http://140.110.141.68:5000/v3",
+          "username": "admin",
+          "password": "admin_pass@nchc"
+        }
+      },
+      "database": {
+        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "port": 3306,
+        "username": "twgc",
+        "password": "twgc@NCHC",
+        "database": "twgc"
+      },
+      "api-server": {
+        "isOutsideCluster": false,
+        "port": 38080,
+        "provider": {
+          "type": "go-oauth",
+          "name": "test-provider",
+          "client_id": "test_client_1",
+          "client_secret": "test_secret",
+          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
+        }
+      },
+      "stackvar": {
+        "tenantid": "6ee034e066ec4296b349c14c522b115c",
+        "netid": "924eab7f-5b27-486e-9be5-da3682fa1678",
+        "sharenetid": "90ca1482-4d17-47b9-af0f-9e881a0746fe",
+        "fippool": "real",
+        "fixedpool": "real_prinet"
+      }
+    }
+  api-conf-google: |-
+    {
+      "rfserver": {
+        "isOutsideCluster": true,
+        "port": 8088,
+        "provider": {
+          "endpoint": "http://140.110.141.68:5000/v3",
+          "username": "admin",
+          "password": "admin_pass@nchc"
+        }
+      },
+      "database": {
+        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "port": 3306,
+        "username": "twgc",
+        "password": "twgc@NCHC",
+        "database": "twgc"
+      },
+      "api-server": {
+        "isOutsideCluster": false,
+        "port": 38080,
+        "provider": {
+          "type": "google-oauth",
+          "name": "google-provider",
+          "client_id": "294126750314-kilf7lm39n919kj1gss11nj1pph58iu2.apps.googleusercontent.com",
+          "client_secret": "mMw1-3oTIUyrGxyPPuDDoNOF",
+          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
+        }
+      },
+      "stackvar": {
+        "tenantid": "6ee034e066ec4296b349c14c522b115c",
+        "netid": "924eab7f-5b27-486e-9be5-da3682fa1678",
+        "sharenetid": "90ca1482-4d17-47b9-af0f-9e881a0746fe",
+        "fippool": "real",
+        "fixedpool": "real_prinet"
+      }
+    }
+  api-conf-github: |-
+    {
+      "rfserver": {
+        "isOutsideCluster": true,
+        "port": 8088,
+        "provider": {
+          "endpoint": "http://140.110.141.68:5000/v3",
+          "username": "admin",
+          "password": "admin_pass@nchc"
+        }
+      },
+      "database": {
+        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "port": 3306,
+        "username": "twgc",
+        "password": "twgc@NCHC",
+        "database": "twgc"
+      },
+      "api-server": {
+        "isOutsideCluster": false,
+        "port": 38080,
+        "provider": {
+          "type": "github-oauth",
+          "name": "github-provider",
+          "client_id": "8c7e2529d37a0855c8bc",
+          "client_secret": "4dbe46e60428ac3b6918379ef2023082261c831d",
+          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
+        }
+      },
+      "stackvar": {
+        "tenantid": "6ee034e066ec4296b349c14c522b115c",
+        "netid": "924eab7f-5b27-486e-9be5-da3682fa1678",
+        "sharenetid": "90ca1482-4d17-47b9-af0f-9e881a0746fe",
+        "fippool": "real",
+        "fixedpool": "real_prinet"
+      }
+    }
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rfstack-api
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  selector:
+    matchLabels:
+      tier: rfstack-api
+  replicas: 1
+  template:
+    metadata:
+      name: rfstack-api
+      labels:
+        tier: rfstack-api
+    spec:
+      containers:
+      - name: rfstack-api
+        image: "{{ .Values.RFSTACK_IMG }}:{{ include "RFSTACK_IMG_VER" . }}"
+        command: ['sh', '-c']
+        # add cert soft link to /etc/ssl/certs before start api
+        args:
+        # change to server-config-google.json or server-config-github.json if you required third party Oauth service
+        - ln -s /etc/ssl/certs/nchc/chain.cert /etc/ssl/certs/chain.cert;
+          /app --logtostderr=true  --conf=/conf/{{ .Values.OAUTH_CONF_FILE1 }}
+        ports:
+        - containerPort: 8088
+        volumeMounts:
+        - name: rfstack-conf
+          mountPath: /conf/
+        - name: nchc-cert
+          mountPath: /etc/ssl/certs/nchc
+      volumes:
+      - name: rfstack-conf
+        configMap:
+          name: rfstack-cm
+          items:
+          - key: api-conf
+            path: server-config.json
+          - key: api-conf-google
+            path: server-config-google.json
+          - key: api-conf-github
+            path: server-config-github.json
+      - name: nchc-cert
+        secret:
+          secretName: nchc-tls-secret
+          items:
+            - key: tls.crt
+              path: chain.cert
+      imagePullSecrets:
+      - name: regcred
+ 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rfstack-svc
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  ports:
+    - port: 8088
+  selector:
+    tier: rfstack-api
