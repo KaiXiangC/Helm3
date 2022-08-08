@@ -52,11 +52,28 @@ ADMIN_UI: twgc-signup-ui
 STATIC_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site
 STATIC_UI: twgc-static-ui
 
-DEFAULT_BACKEND_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/defaultbackend
-CONTROLLER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/nginx-ingress-controller
+#-------------------------------------------
+# Add by Jimmy
+# ingress controller configuration
+ingress_controller:
+  enabled: false
+  default_backend_image: registry.gitlab.com/nchc-ai/aitrain-deploy/defaultbackend
+  controller_image: registry.gitlab.com/nchc-ai/aitrain-deploy/nginx-ingress-controller
 
-RFSTACK_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
-OAUTH_CONF_FILE1: server-config.json
+
+#-------------------------------------------
+# Add by Jimmy
+# RFStack related configuration
+
+rfstack:
+  enabled: false
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
+  OAUTH_CONF_FILE1: server-config.json
+# RFSTACK_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
+
+#--------------------------------------------
+# Add by Jimmy
+# course operator configuration
 
 COURSE_CRD_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
 

@@ -1,3 +1,4 @@
+{{- if .Values.ingress_controller.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
       - name: default-http-backend
-        image: "{{ .Values.DEFAULT_BACKEND_IMG }}:{{ include "VERSION" . }}"
+        image: "{{ .Values.ingress_controller.default_backend_image }}:{{ include "VERSION" . }}"
         livenessProbe:
           httpGet:
             path: /healthz
@@ -240,7 +241,7 @@ spec:
         effect: NoSchedule
       containers:
         - name: nginx-ingress-controller
-          image: "{{ .Values.CONTROLLER_IMG }}:{{ include "VERSION" . }}"
+          image: "{{ .Values.ingress_controller.controller_image }}:{{ include "VERSION" . }}"
           args:
             - /nginx-ingress-controller
             - --default-backend-service=\$(POD_NAMESPACE)/default-http-backend
@@ -305,3 +306,4 @@ spec:
     protocol: TCP
   selector:
     app: ingress-nginx
+{{- end }}
