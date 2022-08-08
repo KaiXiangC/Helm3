@@ -1,3 +1,4 @@
+{{- if .Values.rfstack.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -139,13 +140,13 @@ spec:
     spec:
       containers:
       - name: rfstack-api
-        image: "{{ .Values.RFSTACK_IMG }}:{{ include "RFSTACK_IMG_VER" . }}"
+        image: "{{ .Values.rfstack.image }}:{{ include "RFSTACK_IMG_VER" . }}"
         command: ['sh', '-c']
         # add cert soft link to /etc/ssl/certs before start api
         args:
         # change to server-config-google.json or server-config-github.json if you required third party Oauth service
         - ln -s /etc/ssl/certs/nchc/chain.cert /etc/ssl/certs/chain.cert;
-          /app --logtostderr=true  --conf=/conf/{{ .Values.OAUTH_CONF_FILE1 }}
+          /app --logtostderr=true  --conf=/conf/{{ .Values.rfstack.OAUTH_CONF_FILE1 }}
         ports:
         - containerPort: 8088
         volumeMounts:
@@ -185,3 +186,5 @@ spec:
     - port: 8088
   selector:
     tier: rfstack-api
+
+{{- end }}
