@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.STATIC_UI }}
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  selector:
+    matchLabels:
+      tier: twgc-static-ui
+  replicas: 1
+  template:
+    metadata:
+      name: twgc-static-ui
+      labels:
+        tier: twgc-static-ui
+    spec:
+      containers:
+      - name: twgc-nginx
+        image: "{{ .Values.STATIC_UI_IMAGE }}:{{ include "VERSION" . }}"
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "STATIC_UI_SVC" . }}
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  ports:
+    - port: 80
+  selector:
+    tier: twgc-static-ui
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aitrain-static-ingress
+  namespace: {{ .Values.NS_PREFIX }}-system
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+    - host: {{ include "STATIC_UI_URL" . }}
+      http:
+        paths:
+        - pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ include "STATIC_UI_SVC" . }}
+              port: 
+                number: 80
+  tls:
+    - secretName: nchc-tls-secret
+      hosts:
+        - {{ include "STATIC_UI_URL" . }}
