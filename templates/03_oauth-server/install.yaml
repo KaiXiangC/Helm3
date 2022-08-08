@@ -1,0 +1,277 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: oauth-mysql-pvc
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.SYSTEM_SC_NAME }}
+  resources:
+    requests:
+      storage: 1Gi
+
+---  
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth-database
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  selector:
+    matchLabels:
+      tier: oauth-mysql
+  replicas: 1
+  template:
+    metadata:
+      name: oauth-mysql-pod
+      labels:
+        tier: oauth-mysql
+    spec:
+      containers:
+      - name: oauth-database
+        image: "{{ .Values.DB_IMG }}:{{ include "VERSION" . }}"
+        ports:
+          - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ .Values.DB_ROOT_PW }}
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+        - name: oauth-database-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: oauth-mysql-pvc
+      - name: oauth-database-init
+        configMap:
+          name: oauth-database-cm
+          items:
+          - key: database-init
+            path: init.sql
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth-database-svc
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  ports:
+    - port: 3306
+  selector:
+    tier: oauth-mysql
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth-database-cm
+  namespace: {{ .Values.NS_PREFIX }}-system
+data:
+  database-init: |-
+    CREATE DATABASE go_oauth2_server;
+    CREATE USER 'go_oauth2_server'@'localhost' IDENTIFIED BY 'go_oauth2_server';
+    CREATE USER 'go_oauth2_server'@'%' IDENTIFIED BY 'go_oauth2_server';
+    GRANT ALL ON go_oauth2_server.* TO 'go_oauth2_server'@'localhost';
+    GRANT ALL ON go_oauth2_server.* TO 'go_oauth2_server'@'%';
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth-server
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  selector:
+    matchLabels:
+      tier: oauth-server
+  replicas: 1
+  template:
+    metadata:
+      name: oauth-server
+      labels:
+        tier: oauth-server
+    spec:
+      containers:
+      - name: oauth-server
+        image: "{{ .Values.OAUTH_SERVER_IMG }}:{{ include "VERSION" . }}"
+        args: ["runserver"]
+        env:
+        - name: CONFIG_PATH
+          value: /etc/go_oauth2_server/go_oauth2_server.json
+        readinessProbe:
+          httpGet:
+            path: /v1/health
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: /v1/health
+            port: 8080 
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: oauth-server-conf
+          mountPath: /etc/go_oauth2_server/
+      volumes:
+      - name: oauth-server-conf
+        configMap:
+          name: oauth-server-cm
+          items:
+          - key: conf
+            path: go_oauth2_server.json
+          - key: roles
+            path: roles.yml
+          - key: scopes
+            path: scopes.yml
+          - key: clients
+            path: clients.yml
+      imagePullSecrets:
+      - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth-server-svc
+  namespace: {{ .Values.NS_PREFIX }}-system
+spec:
+  ports:
+    - port: 8080
+  selector:
+    tier: oauth-server
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth-server-cm
+  namespace: {{ .Values.NS_PREFIX }}-system
+data:
+  conf: |-
+    {
+      "Database": {
+        "Type": "mysql",
+        "Host": "oauth-database-svc",
+        "Port": 3306,
+        "User": "go_oauth2_server",
+        "Password": "go_oauth2_server",
+        "DatabaseName": "go_oauth2_server",
+        "MaxIdleConns": 10,
+        "MaxOpenConns": 10
+      },
+      "Oauth": {
+        "AccessTokenLifetime": 259200,
+        "RefreshTokenLifetime": 1209600,
+        "AuthCodeLifetime": 3600
+      },
+      "Session": {
+        "Secret": "test_secret",
+        "Path": "/",
+        "MaxAge": 604800,
+        "HTTPOnly": true
+      },
+      "IsDevelopment": true
+    }
+  roles: |-
+    - table: 'oauth_roles'
+      pk:
+        id: 'superuser'
+      fields:
+        name: 'Superuser'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+    - table: 'oauth_roles'
+      pk:
+        id: 'user'
+      fields:
+        name: 'User'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+    - table: 'oauth_roles'
+      pk:
+        id: 'teacher'
+      fields:
+        name: 'Teacher'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+    - table: 'oauth_roles'
+      pk:
+        id: 'student'
+      fields:
+        name: 'Student'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+  scopes: |-
+    - table: 'oauth_scopes'
+      pk:
+        id: "1"
+      fields:
+        scope: 'read'
+        is_default: true
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+
+    - table: 'oauth_scopes'
+      pk:
+        id: "2"
+      fields:
+        scope: 'read_write'
+        is_default: false
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+  clients: |-
+    - table: 'oauth_clients'
+      pk:
+        id: "1"
+      fields:
+        name: 'test_client_1'
+        secret: '\$2a\$10\$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
+        redirect_uri: 'https://www.example.com'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+
+    - table: 'oauth_clients'
+      pk:
+        id: "2"
+      fields:
+        name: 'test_client_2'
+        secret: '\$2a\$10\$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
+        redirect_uri: 'https://www.example.com'
+        created_at: 'ON_INSERT_NOW()'
+        updated_at: 'ON_UPDATE_NOW()'
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oauth-ingress
+  namespace: {{ .Values.NS_PREFIX }}-system
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+  - host: {{ include "OAUTH_SERVER_URL" . }}
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: oauth-server-svc
+            port: 
+              number: 8080
+  tls:
+  - secretName: nchc-tls-secret
+    hosts: 
+    - {{ include "OAUTH_SERVER_URL" . }}
