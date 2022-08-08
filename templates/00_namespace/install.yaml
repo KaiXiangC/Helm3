@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.NS_PREFIX }}-system
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.NS_PREFIX }}-public
+  labels:
+    instance: {{ .Values.NS_PREFIX }}
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.NS_PREFIX }}-teacher
+  labels:
+    instance: {{ .Values.NS_PREFIX }}
+
+---
+
+#https://helm.sh/docs/howto/charts_tips_and_tricks/#creating-image-pull-secrets
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+  namespace: {{ .Values.NS_PREFIX}}-system
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ template "imagePullSecret" . }}
+
+---
+
+{{- if ne .Values.SYSTEM_SC_NAME .Values.COURSE_SC_NAME -}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.NS_PREFIX }}-course-provisioner
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+  namespace: {{ .Values.NS_PREFIX}}-course-provisioner
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ template "imagePullSecret" . }}
+{{- end }}
+
+---
+
+{{- range .Values.secrets }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nchc-tls-secret
+  namespace: {{ .name }}-system
+type: kubernetes.io/tls
+data:
+  tls.crt: {{ .certificate | b64enc }}
+  tls.key: {{ .key | b64enc }}
+{{- end }}
