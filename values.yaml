@@ -42,7 +42,7 @@ OAUTH_SERVER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
 REDIS_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson
 
 API_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api
-ENABLE_VM_FLAG: flase
+ENABLE_VM_FLAG: false
 
 UI_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
 
