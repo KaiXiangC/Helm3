@@ -236,7 +236,7 @@ data:
         id: "1"
       fields:
         name: 'test_client_1'
-        secret: '\$2a\$10\$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
+        secret: '$2a$10$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
         redirect_uri: 'https://www.example.com'
         created_at: 'ON_INSERT_NOW()'
         updated_at: 'ON_UPDATE_NOW()'
@@ -246,7 +246,7 @@ data:
         id: "2"
       fields:
         name: 'test_client_2'
-        secret: '\$2a\$10\$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
+        secret: '$2a$10$CUoGytf1pR7CC6Y043gt/.vFJUV4IRqvH5R6F0VfITP8s2TqrQ.4e'
         redirect_uri: 'https://www.example.com'
         created_at: 'ON_INSERT_NOW()'
         updated_at: 'ON_UPDATE_NOW()'
