@@ -1,3 +1,5 @@
+{{- $SYSTEM_SC_NAME := include "SYSTEM_SC_NAME" . -}} 
+{{- $COURSE_SC_NAME := include "COURSE_SC_NAME" . -}}
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -35,7 +37,7 @@ data:
 
 ---
 
-{{- if ne .Values.SYSTEM_SC_NAME .Values.COURSE_SC_NAME -}}
+{{- if ne $SYSTEM_SC_NAME $COURSE_SC_NAME -}}
 apiVersion: v1
 kind: Namespace
 metadata:
