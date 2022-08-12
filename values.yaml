@@ -25,7 +25,7 @@ UID_COUNT: 100000
 
 OAUTH_CONF_FILE: api-config.json
 
-K8S_DNS_SERVER: "10.43.0.10"
+K8S_DNS_SERVER: "10.12.0.10"
 
 imageCredentials:
   registry: https://registry.gitlab.com
