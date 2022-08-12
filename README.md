@@ -4,6 +4,15 @@
 - Kubernetes 1.22+
 - Helm 3.5.0+
 
+## Getting started
+### Package
+```
+helm package [chart path]
+```
+### Create Hub
+```
+helm repo index [folder name]
+```
 ## Parameters
 The following table lists the helpers available in the library
 | Key | Description | Default |
