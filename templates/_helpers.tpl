@@ -51,7 +51,11 @@
 {{- end }}
 
 {{- define "RFSTACK_IMG_VER"}}
+{{- if ne .Values.rfstack.version "" }}
+{{- printf "%s" .Values.rfstack.version }}
+{{- else }}
 {{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{- define "COURSE_IMG_VER"}}
@@ -59,7 +63,11 @@
 {{- end }}
 
 {{- define "STATIC_UI_IMG_VER"}}
+{{- if ne .Values.static_ui.version "" }}
+{{- printf "%s" .Values.static_ui.version }}
+{{- else }}
 {{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{/* OAuth provider type */}}
