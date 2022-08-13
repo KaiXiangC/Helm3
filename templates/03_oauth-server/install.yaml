@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: {{ .Values.SYSTEM_SC_NAME }}
+  storageClassName: {{ include "SYSTEM_SC_NAME" . }}
   resources:
     requests:
       storage: 1Gi
@@ -36,7 +36,6 @@ spec:
           - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD
-          # value: {{ .Values.database.root_password }}
           value: {{ randAlphaNum 8 }}
         volumeMounts:
         - name: mysql-storage

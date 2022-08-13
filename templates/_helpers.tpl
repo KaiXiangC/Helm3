@@ -1,10 +1,10 @@
 {{/* Existing StorageClass name */}}
 {{- define "SYSTEM_SC_NAME"}}
-{{- printf "%s" .Values.EXISTING_SC_NAME }}
+{{- printf "%s" .Values.storageclass.existing_sc_name }}
 {{- end }}
 
 {{- define "COURSE_SC_NAME"}}
-{{- printf "%s" .Values.EXISTING_SC_NAME }}
+{{- printf "%s" .Values.storageclass.existing_sc_name }}
 {{- end }}
 
 {{- define "UID_RANGE"}}

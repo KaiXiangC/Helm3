@@ -1,13 +1,8 @@
-# OCP: OCP
-## @param DEST_CLUSTER_INPUT Destion Cluster Type [ OpenShift: OCP | Kubernetes: K8S ]
-# DEST_CLUSTER_INPUT: K8S
-
 
 ## @param NS_PREFIX Name Space Prefix
 NS_PREFIX: aitrain
 
-## @param EXISTING_SC_NAME Storage Class Name
-EXISTING_SC_NAME: standard
+
 
 
 ## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
