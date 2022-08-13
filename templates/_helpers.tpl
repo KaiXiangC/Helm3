@@ -75,7 +75,11 @@
 {{- end }}
 
 {{- define "COURSE_IMG_VER"}}
+{{- if ne .Values.course_operator.version "" }}
+{{- printf "%s" .Values.course_operator.version }}
+{{- else }}
 {{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{- define "ADMIN_UI_IMG_VER"}}
@@ -90,6 +94,15 @@
 {{- define "STATIC_UI_IMG_VER"}}
 {{- if ne .Values.static_ui.version "" }}
 {{- printf "%s" .Values.static_ui.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
+
+{{- define "DB_IMG_VER"}}
+{{- if ne .Values.database.version "" }}
+{{- printf "%s" .Values.database.version }}
 {{- else }}
 {{- printf "%s" .Values.common.version }}
 {{- end }}

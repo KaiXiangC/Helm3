@@ -1,6 +1,6 @@
-OCP: OCP
+# OCP: OCP
 ## @param DEST_CLUSTER_INPUT Destion Cluster Type [ OpenShift: OCP | Kubernetes: K8S ]
-DEST_CLUSTER_INPUT: K8S
+# DEST_CLUSTER_INPUT: K8S
 
 
 ## @param NS_PREFIX Name Space Prefix
@@ -34,9 +34,7 @@ secrets:
   #  key: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQD3eLXDB53QIgh9V2LdsGlPLQKNp6LBlsE3uPNwFr25iOTmr8HZbIm3wtX7Ocw7r6DyX/z+ldoFDMEToQLLLTk+NBrHUgPFFK2ZNupOq+0NqNciqqpAjZdC96d3O5h/3Fz2cSBYWeJ3GwZ6NXnnLZk4mfMvXUxiqeXg6AlzrvLcx21LVL2NFcOKTwrfABKEKG1GltHk8vz33sHWNr1R8nLWP6kCqHWgnMUaft7zm5t1bEAP06yEAHrctCRzM0RHH162dtYywyfi8AFRKli04Ut8RGlLpOcet+SOmhq1shiyKAtoaUCimuV6Xpb2D844Jq2CauTIfC44zpO/Dy7nYrIpAgMBAAECggEBAIEuxxtHB4+VpH7hth9prp+BLHsLzj9mVfijmJijlmia2Hq/tt6r9PwzPgaF9mIV3VuI1gWD7iqCrOt1OoMbWW1qP6xa2NLxZ2m6q/djcjyWLa/QDU3jW9m+c/Ie7w2X2ANhrHPSgBCSz//NmJQgToKogrTv7Cb476JHHmAALJEols9rcIAZuQb5ON7K0nFFfWT9uggwykKuvjAipdoH4ALg9WkmHdz+Twk2IK+srodQfhVYUW3p03PaslNU5QKxz3YcVf4AkYss+V+4V8AMmihkVDUXS7GKu1dVXJ2IK2hSqQD3zwFj6Qk+Xl7jpLI3x3OvlYaHIs6r385iyFHnF80CgYEA+blNMpd6YnWysDW/KXaPk3+/mkU1flesL4kgYvhOmHUIVjXMlb+l2+1zE4re4Js5mqW3p0jIlcl/zg6sUJnDwMiIgeRTRugp/FYFypeh0nIleN1hvbLlfSbdlEF/9zoAJ+JbCXLJAsF8AY8Fs4GwzpLQ/iPTM8HnYl2lbZzPMFMCgYEA/bDq1Mweoxj6nGBi/G7tuZ5oxqG3kJLqTUlcrZIZ45+BLZ+/YRgLnbLkjfueJTzgKnSa5VwPJ5+dJIS5iMGMXB4EoLhRIJB3bd1a7i1/kgZ1Qh6DNc6E5WsCOr/blzH+tR/gfquPFuRwwWhuYwOmtvVa9cfJpYL/eqMKt0vh9BMCgYEAzVn3hVbTKQwoOIa5/9qjDmPKp42qA48M5Loai8gsuWnjxSDQb4P9W/DS5IsZ5BFBOU50y3cqmyHrmwKt6EnJk0pUFpwvbuuTOxFyCbrPM0LyVYWWzmvCEzxWkYebNy3W2vVkb0yYx09cLdvykD5hqj1I5vOGxdT59QWU96IvLkkCgYEAqtpAfQnvRDZpaXF8mLd4gL8Pn16ASuy2wVA8C2VO7D6a+AgTEqfoAs/dH0YrLrb93Xnka72BM1VKtrJwZYq8JbnNshQQBxdkZ2hhefDIbqbMx7fW9CDe3ccgnEJj+EKiYIdUYNrXpjo5OfhEB4kI+UTqeoaP5lkACC7P47xGM2MCgYEAi2zzc8/nKHDiDTkgX/olgrBnJxmeVPveT3ZiDU4H07Bv55dswSzCq99KnJtLI9hhl7y2oduofZCXE7Wlqg4ikNBigaa+2W3PF4MxLXzBFuO/gv4QArbnqYPyNp5sZsyMux8op2qYtXGY3uIWa9/Lp995dy9cdILWMUlHbZVgffo=
   #  certificate: MIIEYTCCAsmgAwIBAgIQfnjZyoXQRpFTSrJmQ5nw3TANBgkqhkiG9w0BAQsFADCBkTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMTMwMQYDVQQLDCpvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykxOjA4BgNVBAMMMW1rY2VydCBvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykwHhcNMjIwNzIwMDMxMTU2WhcNMjQxMDIwMDMxMTU2WjBeMScwJQYDVQQKEx5ta2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlmaWNhdGUxMzAxBgNVBAsMKm9ncmUwNDAzQHZwbi10YzAzOS5uY2hjLm9yZy50dyAo6I6K5a626ZuLKTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPd4tcMHndAiCH1XYt2waU8tAo2nosGWwTe483AWvbmI5OavwdlsibfC1fs5zDuvoPJf/P6V2gUMwROhAsstOT40GsdSA8UUrZk26k6r7Q2o1yKqqkCNl0L3p3c7mH/cXPZxIFhZ4ncbBno1eectmTiZ8y9dTGKp5eDoCXOu8tzHbUtUvY0Vw4pPCt8AEoQobUaW0eTy/PfewdY2vVHyctY/qQKodaCcxRp+3vObm3VsQA/TrIQAety0JHMzREcfXrZ21jLDJ+LwAVEqWLThS3xEaUuk5x635I6aGrWyGLIoC2hpQKKa5XpelvYPzjgmrYJq5Mh8LjjOk78PLudisikCAwEAAaNnMGUwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMB8GA1UdIwQYMBaAFJ0KXJv3AzrlxtXn14Rnu4DscJh6MB0GA1UdEQQWMBSCEiouMTI3LTAtMC0xLm5pcC5pbzANBgkqhkiG9w0BAQsFAAOCAYEAQVD8K2Yzy2B29i9mCf5muq5tcEeIzCEJx8XO9jhJjeoBkKeDOebV1PAqcWcj56+rfd3qqenzhtTNF6AMCVrx4ONsHKm9x1nh3HnjCSPr8v+uyDv/ifhuySqGFkUY3c53q+pdmMH+RrdFxj+VhU7QL1P2fR7I51RHLPJQ3k3jQQ08dOkPlgvBB4aY76/t3Yn0Ma4XDmpFVqqZm8+hDpTdkZSt0cXe2RWDqnwS3kbDx2bw1m/0blmoGg4eGzKWaQAZT1pwUv9w/30v7Aj7HCOgyQJVp0Ne9c/VtwV3xO9OxiGqJ0ZsLZ1REudD666Pw1kX4XIxHuLMZ8nuRLpeI+P5prvYGVTs8llG8FzMCSBFKqff4tXY9EOypejBf0zlRHJfwkEc7HjCw895vP+5qiu3UYOZrykO1MDQib2gsyUUS9x/X9IoVeJp/MwiPb0QzPTbxzp8SctFzkpqwiljWtTqMRvQHzcsgEYgOKr4OcTUZEsT/sUZXdmHJPGoacGoNmP3
 
-DB_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/mysql
-DB_ROOT_PW: ogre0403
-  
+
 OAUTH_SERVER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
 
 REDIS_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson
@@ -72,8 +70,11 @@ rfstack:
 #--------------------------------------------
 # Add by Jimmy
 # course operator configuration
+course_operator:
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
+  
 
-COURSE_CRD_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
 
 #-------------------------------------------
 
@@ -93,3 +94,8 @@ ui:
   version: ""
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
   ingress_url: ""
+
+database:
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/mysql
+  version: ""
+  # root_password: "password"

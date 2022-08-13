@@ -31,12 +31,13 @@ spec:
     spec:
       containers:
       - name: twgc-database
-        image: "{{ .Values.DB_IMG }}:{{ include "VERSION" . }}"
+        image: "{{ .Values.database.image }}:{{ include "DB_IMG_VER" . }}"
         ports:
           - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: {{ .Values.DB_ROOT_PW }}
+          # value: {{ .Values.database.root_password }}
+          value: {{ randAlphaNum 8 }}
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
@@ -286,12 +287,12 @@ spec:
       serviceAccountName: twgc-api-server
       initContainers:
         - name: wait-for-mysql
-          image: "{{ .Values.DB_IMG }}:{{ include "VERSION" . }}"
+          image: "{{ .Values.database.image }}:{{ include "DB_IMG_VER" . }}"
           command:
             - sh
             - -ec
             - |
-              until mysql -h twgc-database-svc -u root -p{{ .Values.DB_ROOT_PW }}  --execute "SHOW DATABASES;"  > /dev/null 2>&1; do
+              until mysql -h twgc-database-svc -u twgc -ptwgc@NCHC  --execute "use twgc;"  > /dev/null 2>&1; do
                   if [ $? -ne 0 ]; then
                       echo "wait for DB ready"
                       sleep 5
