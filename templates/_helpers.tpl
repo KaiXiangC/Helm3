@@ -100,10 +100,10 @@
 
 {{/* DNS Server */}}
 {{- define "K8S_DNS_SERVER"}}
-{{- if eq .Values.K8S_DNS_SERVER "OCP" }}
-{{- printf "172.30.0.10" }}
+{{- if ne .Values.common.k8s_dns_server "" }}
+{{- printf .Values.common.k8s_dns_server }}
 {{- else }}
-{{- printf "10.12.0.10" }}
+{{- printf "10.96.0.10" }}
 {{- end }}
 {{- end }}
 
