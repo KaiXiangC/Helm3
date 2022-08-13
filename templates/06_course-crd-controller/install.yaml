@@ -7,7 +7,7 @@ data:
   course-operator-conf: |-
     {
       "isOutsideCluster": false,
-      "ingressBaseUrl": {{ .Values.DOAMINNAME | quote }},
+      "ingressBaseUrl": {{ .Values.common.domian_name | quote }},
       "ingressClass": {{ .Values.INGRESS_CLASS | quote }},
       "database": {
         "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
