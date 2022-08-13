@@ -9,8 +9,6 @@ NS_PREFIX: aitrain
 ## @param EXISTING_SC_NAME Storage Class Name
 EXISTING_SC_NAME: standard
 
-## @param DOAMINNAME URL Domian
-DOAMINNAME: 127-0-0-1.nip.io
 
 ## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
 OAUTH_TYPE: go-oauth

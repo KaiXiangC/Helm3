@@ -13,27 +13,27 @@
 
 {{/* URL for OAuth server */}}
 {{- define "OAUTH_SERVER_URL"}}
-{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "UI_URL"}}
-{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
 {{/* NodePort Endpoint */}}
 {{- define "NODEPORT_URL"}}
-{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
 {{/* URL for admin UI */}}
 {{- define "ADMIN_UI_URL"}}
-{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "STATIC_UI_URL"}}
-{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
 {{/* Installation Version */}}
