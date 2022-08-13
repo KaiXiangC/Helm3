@@ -13,8 +13,7 @@ EXISTING_SC_NAME: standard
 ## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
 OAUTH_TYPE: go-oauth
 
-## @param INGRESS_CLASS Ingress Class Name
-INGRESS_CLASS: nginx
+
 
 UID_START: 0
 UID_COUNT: 100000

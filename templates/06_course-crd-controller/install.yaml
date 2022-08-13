@@ -8,7 +8,7 @@ data:
     {
       "isOutsideCluster": false,
       "ingressBaseUrl": {{ .Values.common.domian_name | quote }},
-      "ingressClass": {{ .Values.INGRESS_CLASS | quote }},
+      "ingressClass": {{ .Values.common.ingress_class | quote }},
       "database": {
         "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
         "port": 3306,
