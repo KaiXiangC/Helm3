@@ -48,8 +48,6 @@ ENABLE_VM_FLAG: false
 
 UI_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
 
-ADMIN_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
-ADMIN_UI: twgc-signup-ui
 
 
 
@@ -88,3 +86,10 @@ static_ui:
   name: twgc-static-ui
   version: ""
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site
+  ingress_url: ""
+
+admin_ui:
+  name: twgc-signup-ui
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
+  ingress_url: ""

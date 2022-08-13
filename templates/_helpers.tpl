@@ -28,12 +28,20 @@
 
 {{/* URL for admin UI */}}
 {{- define "ADMIN_UI_URL"}}
-{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
+{{- if ne .Values.admin_ui.ingress_url "" }}
+{{- printf "%s" .Values.admin_ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefixs .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "STATIC_UI_URL"}}
-{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
+{{- if ne .Values.static_ui.ingress_url "" }}
+{{- printf "%s" .Values.static_ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* Installation Version */}}
@@ -61,6 +69,15 @@
 {{- define "COURSE_IMG_VER"}}
 {{- printf "%s" .Values.common.version }}
 {{- end }}
+
+{{- define "ADMIN_UI_IMG_VER"}}
+{{- if ne .Values.admin_ui.version "" }}
+{{- printf "%s" .Values.admin_ui.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
 
 {{- define "STATIC_UI_IMG_VER"}}
 {{- if ne .Values.static_ui.version "" }}
@@ -92,7 +109,7 @@
 
 {{/* SVC */}}
 {{- define "ADMIN_UI_SVC"}}
-{{- printf "%s-svc" .Values.ADMIN_UI }}
+{{- printf "%s-svc" .Values.admin_ui.name }}
 {{- end }}
 
 {{- define "STATIC_UI_SVC"}}
