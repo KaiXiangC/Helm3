@@ -121,7 +121,7 @@ data:
         "storageclass": "{{ .Values.COURSE_SC_NAME }}"
       },
       "rfstack": {
-        "enable": {{ .Values.ENABLE_VM_FLAG }},
+        "enable": {{ .Values.common.enable_vm }},
         "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
       },
       "redis": {
@@ -159,7 +159,7 @@ data:
         "storageclass": "{{ .Values.COURSE_SC_NAME }}"
       },
       "rfstack": {
-        "enable": {{ .Values.ENABLE_VM_FLAG }},
+        "enable": {{ .Values.common.enable_vm }},
         "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
       },
       "redis": {
@@ -197,7 +197,7 @@ data:
         "storageclass": "{{ .Values.COURSE_SC_NAME }}"
       },
       "rfstack": {
-        "enable": {{ .Values.ENABLE_VM_FLAG }},
+        "enable": {{ .Values.common.enable_vm }},
         "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
       },
       "redis": {

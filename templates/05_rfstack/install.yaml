@@ -1,4 +1,4 @@
-{{- if .Values.rfstack.enabled -}}
+{{- if .Values.common.enable_vm -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:

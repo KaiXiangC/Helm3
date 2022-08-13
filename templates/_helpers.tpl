@@ -16,9 +16,13 @@
 {{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
 {{- end }}
 
-{{/* URL for static UI */}}
+{{/* URL for UI */}}
 {{- define "UI_URL"}}
-{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
+{{- if ne .Values.ui.ingress_url "" }}
+{{- printf "%s" .Values.ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* NodePort Endpoint */}}
@@ -31,7 +35,7 @@
 {{- if ne .Values.admin_ui.ingress_url "" }}
 {{- printf "%s" .Values.admin_ui.ingress_url }}
 {{- else }}
-{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefixs .Values.common.domian_name }}
+{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
 {{- end }}
 {{- end }}
 
@@ -55,7 +59,11 @@
 {{- end }}
 
 {{- define "UI_IMG_VER"}}
+{{- if ne .Values.ui.version "" }}
+{{- printf "%s" .Values.ui.version }}
+{{- else }}
 {{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{- define "RFSTACK_IMG_VER"}}

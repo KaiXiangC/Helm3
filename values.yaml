@@ -42,9 +42,6 @@ OAUTH_SERVER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
 REDIS_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson
 
 API_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api
-ENABLE_VM_FLAG: false
-
-UI_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
 
 
 
@@ -57,6 +54,7 @@ common:
   domian_name: "127-0-0-1.nip.io"
   ingress_class: nginx
   k8s_dns_server: ""
+  enable_vm: false
 
 storageclass:
   install: false
@@ -68,7 +66,6 @@ storageclass:
 
 rfstack:
   version: ""
-  enabled: false
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
   OAUTH_CONF_FILE1: server-config.json
 
@@ -90,4 +87,9 @@ admin_ui:
   name: twgc-signup-ui
   version: ""
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
+  ingress_url: ""
+
+ui:
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
   ingress_url: ""
