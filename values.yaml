@@ -56,7 +56,7 @@ ADMIN_UI: twgc-signup-ui
 #------------------------------------------
 common:
   destination: kubernetes
-  namespacePrefix: aitrain
+  namespace_prefix: aitrain
   version: v2022.07
   domian_name: "127-0-0-1.nip.io"
   ingress_class: nginx
