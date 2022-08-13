@@ -3,7 +3,7 @@ OCP: OCP
 DEST_CLUSTER_INPUT: K8S
 
 ## @param VERSION Version Type [ v2021-12 | v2022-07 ]
-VERSION: v2022-07
+VERSION: v2022.07
 
 ## @param NS_PREFIX Name Space Prefix
 NS_PREFIX: aitrain
