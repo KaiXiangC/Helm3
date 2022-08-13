@@ -13,49 +13,53 @@
 
 {{/* URL for OAuth server */}}
 {{- define "OAUTH_SERVER_URL"}}
-{{- printf "%s-%s-oauth.%s" (.Values.VERSION | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "UI_URL"}}
-{{- printf "%s-%s-ui.%s" (.Values.VERSION | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
 {{- end }}
 
 {{/* NodePort Endpoint */}}
 {{- define "NODEPORT_URL"}}
-{{- printf "%s-%s-nodeport.%s" (.Values.VERSION | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
 {{- end }}
 
 {{/* URL for admin UI */}}
 {{- define "ADMIN_UI_URL"}}
-{{- printf "%s-%s-admin.%s" (.Values.VERSION | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "STATIC_UI_URL"}}
-{{- printf "%s-%s-static.%s" (.Values.VERSION | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.DOAMINNAME }}
 {{- end }}
 
 {{/* Installation Version */}}
 {{- define "VERSION"}}
-{{- printf "%s" .Values.VERSION }}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 
 {{/* IMG Version */}}
 {{- define "API_IMG_VER"}}
-{{- printf "%s" .Values.VERSION }}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 
 {{- define "UI_IMG_VER"}}
-{{- printf "%s" .Values.VERSION }}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 
 {{- define "RFSTACK_IMG_VER"}}
-{{- printf "%s" .Values.VERSION }}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 
 {{- define "COURSE_IMG_VER"}}
-{{- printf "%s" .Values.VERSION }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+
+{{- define "STATIC_UI_IMG_VER"}}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 
 {{/* OAuth provider type */}}
@@ -84,7 +88,7 @@
 {{- end }}
 
 {{- define "STATIC_UI_SVC"}}
-{{- printf "%s-svc" .Values.STATIC_UI }}
+{{- printf "%s-svc" .Values.static_ui.name }}
 {{- end }}
 
 {{/* Expand the name of the chart. */}}

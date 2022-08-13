@@ -2,8 +2,6 @@ OCP: OCP
 ## @param DEST_CLUSTER_INPUT Destion Cluster Type [ OpenShift: OCP | Kubernetes: K8S ]
 DEST_CLUSTER_INPUT: K8S
 
-## @param VERSION Version Type [ v2021-12 | v2022-07 ]
-VERSION: v2022.07
 
 ## @param NS_PREFIX Name Space Prefix
 NS_PREFIX: aitrain
@@ -12,7 +10,7 @@ NS_PREFIX: aitrain
 EXISTING_SC_NAME: standard
 
 ## @param DOAMINNAME URL Domian
-DOAMINNAME: nchc.org.tw
+DOAMINNAME: 127-0-0-1.nip.io
 
 ## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
 OAUTH_TYPE: go-oauth
@@ -55,15 +53,27 @@ UI_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
 ADMIN_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
 ADMIN_UI: twgc-signup-ui
 
-STATIC_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site
-STATIC_UI: twgc-static-ui
 
+
+#------------------------------------------
+common:
+  destination: kubernetes
+  namespacePrefix: aitrain
+  version: v2022.07
+  domian_name: "127-0-0-1.nip.io"
+  ingress_class: nginx
+  k8s_dns_server: "10.96.0.10"
+
+storageclass:
+  install: false
+  existing_sc_name: standard
 
 #-------------------------------------------
 # Add by Jimmy
 # RFStack related configuration
 
 rfstack:
+  version: ""
   enabled: false
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
   OAUTH_CONF_FILE1: server-config.json
@@ -75,49 +85,8 @@ rfstack:
 COURSE_CRD_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
 
 #-------------------------------------------
-# replicaCount: 1
 
-# image:
-#   repository: nginx
-#   pullPolicy: IfNotPresent
-#   tag: ""
-
-# imagePullSecrets: []
-# nameOverride: ""
-# fullnameOverride: ""
-
-# serviceAccount:
-#   create: true
-#   annotations: {}
-#   name: ""
-
-# podAnnotations: {}
-
-# podSecurityContext: {}
-
-# securityContext: {}
-
-# service:
-#   type: NodePort
-#   port: 8080
-
-# ingress:
-#   enabled: false
-#   hosts:
-#     - host: chart-example.local
-#       paths: []
-#   tls: []
-
-# resources: {}
-
-# autoscaling:
-#   enabled: false
-#   minReplicas: 1
-#   maxReplicas: 100
-#   targetCPUUtilizationPercentage: 80
-
-# nodeSelector: {}
-
-# tolerations: []
-
-# affinity: {}
+static_ui:
+  name: twgc-static-ui
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site

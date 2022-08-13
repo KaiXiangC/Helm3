@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.STATIC_UI }}
+  name: {{ .Values.static_ui.name }}
   namespace: {{ .Values.NS_PREFIX }}-system
 spec:
   selector:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: twgc-nginx
-        image: "{{ .Values.STATIC_UI_IMAGE }}:{{ include "VERSION" . }}"
+        image: "{{ .Values.static_ui.image }}:{{ include "STATIC_UI_IMG_VER" . }}"
         ports:
         - containerPort: 80
       imagePullSecrets:
