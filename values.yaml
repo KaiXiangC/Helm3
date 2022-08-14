@@ -53,7 +53,7 @@ rfstack:
 
 
 course_operator:
-  version: ""
+  version: issue-24-25
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
   
 ui:

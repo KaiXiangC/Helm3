@@ -8,7 +8,7 @@
 {{- end }}
 
 {{- define "UID_RANGE"}}
-{{- div .Values.api.uid_start .Values.api.uid_count }}
+{{- printf "%0.0f/%0.0f" .Values.api.uid_start .Values.api.uid_count }}
 {{- end }}
 
 {{/* URL for OAuth server */}}
