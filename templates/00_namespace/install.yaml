@@ -3,25 +3,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.NS_PREFIX }}-system
+  name: {{ .Values.common.namespace_prefix }}-system
 
 ---
 
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.NS_PREFIX }}-public
+  name: {{ .Values.common.namespace_prefix }}-public
   labels:
-    instance: {{ .Values.NS_PREFIX }}
+    instance: {{ .Values.common.namespace_prefix }}
 
 ---
 
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.NS_PREFIX }}-teacher
+  name: {{ .Values.common.namespace_prefix }}-teacher
   labels:
-    instance: {{ .Values.NS_PREFIX }}
+    instance: {{ .Values.common.namespace_prefix }}
 
 ---
 
@@ -30,7 +30,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: regcred
-  namespace: {{ .Values.NS_PREFIX}}-system
+  namespace: {{ .Values.common.namespace_prefix}}-system
 type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{ template "imagePullSecret" . }}
@@ -41,7 +41,7 @@ data:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.NS_PREFIX }}-course-provisioner
+  name: {{ .Values.common.namespace_prefix }}-course-provisioner
 
 ---
 
@@ -49,7 +49,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: regcred
-  namespace: {{ .Values.NS_PREFIX}}-course-provisioner
+  namespace: {{ .Values.common.namespace_prefix}}-course-provisioner
 type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{ template "imagePullSecret" . }}

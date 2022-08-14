@@ -16,7 +16,7 @@
 {{- if ne .Values.oauth_server.ingress_url "" }}
 {{- printf "%s" .Values.oauth_server.ingress_url }}
 {{- else }}
-{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
+{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
 {{- end }}
 {{- end }}
 
