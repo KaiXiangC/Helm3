@@ -8,7 +8,7 @@
 {{- end }}
 
 {{- define "UID_RANGE"}}
-{{- div .Values.UID_START .Values.UID_COUNT }}
+{{- div .Values.api.uid_start .Values.api.uid_count }}
 {{- end }}
 
 {{/* URL for OAuth server */}}
@@ -27,7 +27,11 @@
 
 {{/* NodePort Endpoint */}}
 {{- define "NODEPORT_URL"}}
-{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.NS_PREFIX .Values.common.domian_name }}
+{{- if ne .Values.api.nodeport_url "" }}
+{{- printf "%s" .Values.api.nodeport_url }}
+{{- else }}
+{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* URL for admin UI */}}
@@ -55,8 +59,21 @@
 
 {{/* IMG Version */}}
 {{- define "API_IMG_VER"}}
+{{- if ne .Values.api.version "" }}
+{{- printf "%s" .Values.api.version }}
+{{- else }}
 {{- printf "%s" .Values.common.version }}
 {{- end }}
+{{- end }}
+
+{{- define "REDIS_IMG_VER"}}
+{{- if ne .Values.api.redis_version "" }}
+{{- printf "%s" .Values.api.redis_version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
 
 {{- define "UI_IMG_VER"}}
 {{- if ne .Values.ui.version "" }}

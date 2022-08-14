@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   accessModes:
     - ReadWriteOnce
@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: twgc-database
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   selector:
     matchLabels:
@@ -61,7 +61,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: twgc-database-svc
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   ports:
     - port: 3306
@@ -74,7 +74,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: twgc-database-cm
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 data:
   database-init: |-
     CREATE DATABASE twgc;
@@ -89,7 +89,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: twgc-api-cm
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 data:
   api-conf: |-
     {
@@ -97,19 +97,19 @@ data:
         "isOutsideCluster": false,
         "port": 38080,
         "enableSecureAPI": true,
-        "namespacePrefix": "{{ .Values.NS_PREFIX }}",
+        "namespacePrefix": "{{ .Values.common.namespace_prefix }}",
         "uidRange": "{{ include "UID_RANGE" . }}",
         "provider": {
           "type": "go-oauth",
           "name": "test-provider",
           "client_id": "test_client_1",
           "client_secret": "test_secret",
-          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "url": "http://oauth-server-svc.{{ .Values.common.namespace_prefix }}-system:8080",
           "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
         }
       },
       "database": {
-        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-database-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 3306,
         "username": "twgc",
         "password": "twgc@NCHC",
@@ -122,10 +122,10 @@ data:
       },
       "rfstack": {
         "enable": {{ .Values.common.enable_vm }},
-        "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
+        "url": "http://rfstack-svc.{{ .Values.common.namespace_prefix }}-system:8088"
       },
       "redis": {
-        "host": "twgc-redis-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-redis-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 6379
       }
     }
@@ -135,19 +135,19 @@ data:
         "isOutsideCluster": false,
         "port": 38080,
         "enableSecureAPI": true,
-        "namespacePrefix": "{{ .Values.NS_PREFIX }}",
+        "namespacePrefix": "{{ .Values.common.namespace_prefix }}",
         "uidRange": "{{ include "UID_RANGE" . }}",
         "provider": {
           "type": "google-oauth",
           "name": "google-provider",
           "client_id": "294126750314-kilf7lm39n919kj1gss11nj1pph58iu2.apps.googleusercontent.com",
           "client_secret": "mMw1-3oTIUyrGxyPPuDDoNOF",
-          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "url": "http://oauth-server-svc.{{ .Values.common.namespace_prefix }}-system:8080",
           "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
         }
       },
       "database": {
-        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-database-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 3306,
         "username": "twgc",
         "password": "twgc@NCHC",
@@ -160,10 +160,10 @@ data:
       },
       "rfstack": {
         "enable": {{ .Values.common.enable_vm }},
-        "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
+        "url": "http://rfstack-svc.{{ .Values.common.namespace_prefix }}-system:8088"
       },
       "redis": {
-        "host": "twgc-redis-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-redis-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 6379
       }
     }
@@ -173,19 +173,19 @@ data:
         "isOutsideCluster": false,
         "port": 38080,
         "enableSecureAPI": true,
-        "namespacePrefix": "{{ .Values.NS_PREFIX }}",
+        "namespacePrefix": "{{ .Values.common.namespace_prefix }}",
         "uidRange": "{{ include "UID_RANGE" . }}",
         "provider": {
           "type": "github-oauth",
           "name": "github-provider",
           "client_id": "8c7e2529d37a0855c8bc",
           "client_secret": "4dbe46e60428ac3b6918379ef2023082261c831d",
-          "url": "http://oauth-server-svc.{{ .Values.NS_PREFIX }}-system:8080",
+          "url": "http://oauth-server-svc.{{ .Values.common.namespace_prefix }}-system:8080",
           "redirect_url": "https://{{ include "UI_URL" . }}/user/classroom-manage"
         }
       },
       "database": {
-        "host": "twgc-database-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-database-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 3306,
         "username": "twgc",
         "password": "twgc@NCHC",
@@ -198,10 +198,10 @@ data:
       },
       "rfstack": {
         "enable": {{ .Values.common.enable_vm }},
-        "url": "http://rfstack-svc.{{ .Values.NS_PREFIX }}-system:8088"
+        "url": "http://rfstack-svc.{{ .Values.common.namespace_prefix }}-system:8088"
       },
       "redis": {
-        "host": "twgc-redis-svc.{{ .Values.NS_PREFIX }}-system",
+        "host": "twgc-redis-svc.{{ .Values.common.namespace_prefix }}-system",
         "port": 6379
       }
     }
@@ -212,14 +212,14 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: twgc-api-server
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 
 ---
 
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ .Values.NS_PREFIX }}-system-course-namespace-clusterrole
+  name: {{ .Values.common.namespace_prefix }}-system-course-namespace-clusterrole
 rules:
 - apiGroups: ["nchc.ai"]
   resources: ["courses"]
@@ -240,14 +240,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ .Values.NS_PREFIX }}-system-twgc-api-rolebinding-2
+  name: {{ .Values.common.namespace_prefix }}-system-twgc-api-rolebinding-2
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Values.NS_PREFIX }}-system-course-namespace-clusterrole
+  name: {{ .Values.common.namespace_prefix }}-system-course-namespace-clusterrole
 subjects:
 - kind: ServiceAccount
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
   name: twgc-api-server
 
 ---
@@ -255,14 +255,14 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ .ValuesNS_PREFIX }}-system-twgc-api-rolebinding
+  name: {{ .Values.common.namespace_prefix }}-system-twgc-api-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: edit
 subjects:
 - kind: ServiceAccount
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
   name: twgc-api-server
 
 ---
@@ -271,7 +271,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: twgc-api
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   selector:
     matchLabels:
@@ -306,7 +306,7 @@ spec:
               memory: 64Mi      
       containers:
       - name: twgc-api
-        image: "{{ .Values.API_IMG }}:{{ include "API_IMG_VER" . }}"
+        image: "{{ .Values.api.image }}:{{ include "API_IMG_VER" . }}"
         imagePullPolicy: Always
         command: ['sh', '-c']
         args:
@@ -345,7 +345,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: twgc-api-svc
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   ports:
     - port: 38080
@@ -358,7 +358,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: twgc-redis-cache
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   selector:
     matchLabels:
@@ -372,7 +372,7 @@ spec:
     spec:
       containers:
       - name: twgc-redis-cache
-        image: "{{ .Values.REDIS_IMG }}:{{ include "VERSION" . }}"
+        image: "{{ .Values.api.redis_image }}:{{ include "REDIS_IMG_VER" . }}"
         ports:
           - containerPort: 6379
       imagePullSecrets:
@@ -384,7 +384,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: twgc-redis-svc
-  namespace: {{ .Values.NS_PREFIX }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 spec:
   ports:
     - port: 6379

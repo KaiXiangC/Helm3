@@ -5,14 +5,6 @@ NS_PREFIX: aitrain
 
 
 
-
-
-UID_START: 0
-UID_COUNT: 100000
-
-
-
-
 imageCredentials:
   registry: https://registry.gitlab.com
   username: gitlab+deploy-token-1213347
@@ -29,12 +21,16 @@ secrets:
 
 OAUTH_SERVER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
 
-REDIS_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson
-
-API_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api
 
 
-
+api:
+  image: "registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api"
+  version: ""
+  redis_image: "registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson"
+  redis_version: ""
+  uid_start: 0
+  uid_count: 100000
+  nodeport_url: ""
 
 #------------------------------------------
 common:
