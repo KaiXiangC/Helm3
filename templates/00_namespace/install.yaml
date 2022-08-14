@@ -37,7 +37,7 @@ data:
 
 ---
 
-{{- if ne $SYSTEM_SC_NAME $COURSE_SC_NAME -}}
+{{ if ne $SYSTEM_SC_NAME $COURSE_SC_NAME }}
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -53,18 +53,22 @@ metadata:
 type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{ template "imagePullSecret" . }}
-{{- end }}
+{{ end }}
 
 ---
 
-{{- range .Values.secrets }}
+# https://blog.frognew.com/2018/09/using-helm-manage-tls-secret.html
 apiVersion: v1
 kind: Secret
 metadata:
   name: nchc-tls-secret
-  namespace: {{ .name }}-system
+  namespace: {{ .Values.common.namespace_prefix }}-system
 type: kubernetes.io/tls
 data:
-  tls.crt: {{ .certificate | b64enc }}
-  tls.key: {{ .key | b64enc }}
-{{- end }}
+  {{ if eq .Values.tls_secret.from_file true }}
+  tls.crt: {{ .Files.Get .Values.tls_secret.certificate_file | b64enc }}
+  tls.key: {{ .Files.Get .Values.tls_secret.key_file | b64enc }}
+  {{ else }}
+  tls.crt: {{ .Values.tls_secret.certificate | b64enc }}
+  tls.key: {{ .Values.tls_secret.key | b64enc }}
+  {{ end }}
