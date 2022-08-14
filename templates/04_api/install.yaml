@@ -311,7 +311,7 @@ spec:
         command: ['sh', '-c']
         args:
         - ln -s /etc/ssl/certs/nchc/chain.cert /etc/ssl/certs/chain.cert;
-          /app --logtostderr=true --conf=/etc/api-server/{{ .Values.OAUTH_CONF_FILE }}
+          /app --logtostderr=true --conf=/etc/api-server/{{ include "API_OAUTH_CONF" . }}
         ports:
         - containerPort: 38080
         volumeMounts:

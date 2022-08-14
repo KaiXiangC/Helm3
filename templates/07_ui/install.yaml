@@ -17,7 +17,7 @@ data:
     export const pdfLink = 'https://drive.google.com/file/d/1MvfNxfLkBr4yvbxsJhh-D6PeaFsovNPl/view'
     export const APPLY_ADMIN_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSccwgqH5a0sA9-UriWS5atlmQ8X4uzdbYl57eLF8S-NbodHHg/viewform'
     export const ENABLE_RFSTACK = {{ .Values.common.enable_vm }}
-    export const OAUTH_PROVIDER = {{ include "OAUTH_TYPE" . | squote }}
+    export const OAUTH_PROVIDER = '{{ .Values.common.oauth_type }}'
 
 ---
 

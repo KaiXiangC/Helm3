@@ -5,15 +5,12 @@ NS_PREFIX: aitrain
 
 
 
-## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
-OAUTH_TYPE: go-oauth
-
 
 
 UID_START: 0
 UID_COUNT: 100000
 
-OAUTH_CONF_FILE: api-config.json
+
 
 
 imageCredentials:
@@ -48,6 +45,7 @@ common:
   ingress_class: nginx
   k8s_dns_server: ""
   enable_vm: false
+  oauth_type: go-oauth
 
 storageclass:
   install: false
@@ -60,7 +58,7 @@ storageclass:
 rfstack:
   version: ""
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
-  OAUTH_CONF_FILE1: server-config.json
+
 
 #--------------------------------------------
 # Add by Jimmy

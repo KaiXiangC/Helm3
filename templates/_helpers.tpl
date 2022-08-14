@@ -108,16 +108,6 @@
 {{- end }}
 {{- end }}
 
-{{/* OAuth provider type */}}
-{{- define "OAUTH_TYPE"}}
-{{- if eq .Values.OAUTH_TYPE "google-oauth" }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
-{{- else if eq .Values.OAUTH_TYPE "github-oauth" }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
-{{- else }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
-{{- end }}
-{{- end }}
 
 {{/* DNS Server */}}
 {{- define "K8S_DNS_SERVER"}}
@@ -135,6 +125,28 @@
 
 {{- define "STATIC_UI_SVC"}}
 {{- printf "%s-svc" .Values.static_ui.name }}
+{{- end }}
+
+{{/*OAUTH CONFIGUATION*/}}
+{{- define "RFSTACK_OAUTH_CONF"}}
+{{- if eq .Values.common.oauth_type "google-oauth" }}
+{{- printf "server-config-google.json" }}
+{{- else if eq .Values.common.oauth_type "github-oauth" }}
+{{- printf "server-config-github.json" }}
+{{- else }}
+{{- printf "server-config.json" }}
+{{- end }}
+{{- end }}
+
+
+{{- define "API_OAUTH_CONF"}}
+{{- if eq .Values.common.oauth_type "google-oauth" }}
+{{- printf "api-config-google.json" }}
+{{- else if eq .Values.common.oauth_type "github-oauth" }}
+{{- printf "api-config-github.json" }}
+{{- else }}
+{{- printf "api-config.json" }}
+{{- end }}
 {{- end }}
 
 {{/* Expand the name of the chart. */}}
