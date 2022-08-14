@@ -1,3 +1,8 @@
+namespace_suffix: 
+  - system
+  - teacher
+  - public
+
 common:
   destination: kubernetes
   namespace_prefix: aitrain

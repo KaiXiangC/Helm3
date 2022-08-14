@@ -1,27 +1,18 @@
 {{- $SYSTEM_SC_NAME := include "SYSTEM_SC_NAME" . -}} 
 {{- $COURSE_SC_NAME := include "COURSE_SC_NAME" . -}}
+
+
+{{ range .Values.namespace_suffix }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.common.namespace_prefix }}-system
-
----
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.common.namespace_prefix }}-public
+  name: {{ $.Values.common.namespace_prefix }}-{{ . }}
+  {{ if ne . "system" }}
   labels:
-    instance: {{ .Values.common.namespace_prefix }}
-
+    instance: {{ $.Values.common.namespace_prefix }}
+  {{ end }}
 ---
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.common.namespace_prefix }}-teacher
-  labels:
-    instance: {{ .Values.common.namespace_prefix }}
+{{ end }}
 
 ---
 
@@ -58,17 +49,20 @@ data:
 ---
 
 # https://blog.frognew.com/2018/09/using-helm-manage-tls-secret.html
+{{ range .Values.namespace_suffix }}
 apiVersion: v1
 kind: Secret
 metadata:
   name: nchc-tls-secret
-  namespace: {{ .Values.common.namespace_prefix }}-system
+  namespace: {{ $.Values.common.namespace_prefix }}-{{ . }}
 type: kubernetes.io/tls
 data:
-  {{ if eq .Values.tls_secret.from_file true }}
-  tls.crt: {{ .Files.Get .Values.tls_secret.certificate_file | b64enc }}
-  tls.key: {{ .Files.Get .Values.tls_secret.key_file | b64enc }}
+  {{ if eq $.Values.tls_secret.from_file true }}
+  tls.crt: {{ $.Files.Get $.Values.tls_secret.certificate_file | b64enc }}
+  tls.key: {{ $.Files.Get $.Values.tls_secret.key_file | b64enc }}
   {{ else }}
-  tls.crt: {{ .Values.tls_secret.certificate | b64enc }}
-  tls.key: {{ .Values.tls_secret.key | b64enc }}
+  tls.crt: {{ $.Values.tls_secret.certificate | b64enc }}
+  tls.key: {{ $.Values.tls_secret.key | b64enc }}
   {{ end }}
+---
+{{ end }}
