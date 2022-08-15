@@ -1,131 +1,133 @@
-OCP: OCP
-## @param DEST_CLUSTER_INPUT Destion Cluster Type [ OpenShift: OCP | Kubernetes: K8S ]
-DEST_CLUSTER_INPUT: K8S
+namespace_suffix: 
+  - system
+  - teacher
+  - public
 
-## @param VERSION Version Type [ v2021-12 | v2022-07 ]
-VERSION: v2022-07
+common:
+  destination: kubernetes
+  namespace_prefix: aitrain
+  version: v2022.07
+  domian_name: "127-0-0-1.nip.io"
+  ingress_class: nginx
+  k8s_dns_server: ""
+  enable_vm: false
+  oauth_type: go-oauth
 
-## @param NS_PREFIX Name Space Prefix
-NS_PREFIX: aitrain
-
-## @param EXISTING_SC_NAME Storage Class Name
-EXISTING_SC_NAME: standard
-
-## @param DOAMINNAME URL Domian
-DOAMINNAME: nchc.org.tw
-
-## @param OAUTH_TYPE OAuth Provider Type [ go-oauth | google-oauth | github-oauth ]
-OAUTH_TYPE: go-oauth
-
-## @param INGRESS_CLASS Ingress Class Name
-INGRESS_CLASS: nginx
-
-UID_START: 0
-UID_COUNT: 100000
-
-OAUTH_CONF_FILE: api-config.json
-
-K8S_DNS_SERVER: "10.12.0.10"
 
 imageCredentials:
   registry: https://registry.gitlab.com
   username: gitlab+deploy-token-1213347
   password: FfZ3XScdBszSsnZyHePz
 
-secrets: 
-  - name: aitrain #140_110_136_72  
-    key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2h0PxZPo0JQue2gdXtriyx4smjeboHm2nS4XS393UbOqARixigwkhaaaWEJwbd1JpcgOsZ3CkvoMAWIATnAN+k22hWo+oTnkpRWNDlg24CnSLBUjqr4vhmCWJfD3z6lnaagrJICrj4oNKoTroriJqkoae3nVWrRZCTG3tzO9i41yjSY7d9CSjl7QlfLF1F/5pvfWwkMzlkqW+NnMiY+gAOSHfwCKS6R1GAjT6DV72Ga7Q0YD2eUrZJq4x1/WV4sW1bgyiksF3KVjtvd8vCE83KIQronpc8+Jes5lwIbb7bAHgg8ogfJ3eKgS7SqfBSsQcBiv9/bgsi/yh7D4PNNvJAgMBAAECggEAFOqPOJxPp6YPHNbzPHPt2l7PbU2ZhkPmYONgpHeO3gbVIHnqICfP5gpLUqr4mJUl1nuAPENmPxqtvF5n3tdj9x9B0tmj2K+VZstSwq3xSIO6MywZ3Prc1q8urgCUwNy8CzFXpxCOmaqdTPII5B0ASKId1xq664HOKS7E8hkn3XbquKDY297uZWJ7RCXkzHiNn7zxjJfmP5OrLhibfl3MF96CCkfcbpGchKCCvSzJabmyy3p/wNXyHRPQLtUMpeP/z1B1iskWivyh0k8h7jUGYdXZpUUToJa+G4Oqoxj1XUD7UpKs5dE0+xgY0M3q6tz2oDaZ99gWpwET6FlLqjJAAQKBgQDpYoMFtdoYf1eABg6/dKz8u2/KQ/17Y7lZS3Ox2N4sF3cq2etNSMZQIpvDVGN4cNxwgslp3U68FeRvznm6NjYAEBJ4hAAmUru2/ooesI6zJaaHVIdusGAnPyJBY18at5Y5QMbHzrSpLqtJEfOUU1XDuwXOSTmhsPhnfu3y4+J/yQKBgQDINy1uM+c/VLGgOmM1npuc1shL9bIa6pHTGnr63M5kyr1mdpjzVyfyFNf6ax3qY5c3uEYFH2FoI+87F/3q03vDjk4eZ9cTz5PaAs3joIfFJig3xixmW/sPyfJaV36fmS3qUWeI4bJRHyFV2Cbilsxi2k/9OON/+0dmLuIRgoV8AQKBgQDC8x8vLfC4debJckXvd67ojkmbU5/x6iNxi61g6h7sBc3tZYtAS4IcfkxOpbdRbDU3ZoiIfey/ACqJmpfkDFSfSM2lDd5yJLnY6lbFvAX3b4Pjl6BpvbsUDZC3viI7Vw+NU6a4UNpoWCuMJgqp49LIZPk8j74san+VNFnfgqw4wQKBgGyKhUWOO9p4hsdPgANMlh4jznhnnYO8EQw5+dvQItA/nQhUWTzqzgwOQrxOn+w2y374lnUmev8jJAmMSyqoNhthJXaUYuQpj4UMKiQyHgjCU+FQvTdMvEHmAE37yvio6Vxzf0aU3L/fuYm5YfNLP0iEBANKeQMj7aQ23HYTpVwBAoGAW8P3E/ciTq7Ykh5wmmteeWEjkbQxHYLNEjfbQWb504jYD0D/d80dirUILbQZ1livHShqkkyTrBneOIAKlAUV2tqorKoXdobNEG538/jdj8kM638L8TjgrnvDeUDFgNK7Lg6++uCF94uYwYVpRfiOZe2i3j0WbM9hQ4ru09x8mhc=
-    certificate: MIIEZjCCAs6gAwIBAgIQTVIVyUp2m8kd2oikyeJCGDANBgkqhkiG9w0BAQsFADCBkTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMTMwMQYDVQQLDCpvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykxOjA4BgNVBAMMMW1rY2VydCBvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykwHhcNMjIwNDA2MDMwNTEzWhcNMjQwNzA2MDMwNTEzWjBeMScwJQYDVQQKEx5ta2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlmaWNhdGUxMzAxBgNVBAsMKm9ncmUwNDAzQHZwbi10YzAzNC5uY2hjLm9yZy50dyAo6I6K5a626ZuLKTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALaHQ/Fk+jQlC57aB1e2uLLHiyaN5ugebadLhdLf3dRs6oBGLGKDCSFpppYQnBt3UmlyA6xncKS+gwBYgBOcA36TbaFaj6hOeSlFY0OWDbgKdIsFSOqvi+GYJYl8PfPqWdpqCskgKuPig0qhOuiuImqShp7edVatFkJMbe3M72LjXKNJjt30JKOXtCV8sXUX/mm99bCQzOWSpb42cyJj6AA5Id/AIpLpHUYCNPoNXvYZrtDRgPZ5StkmrjHX9ZXixbVuDKKSwXcpWO293y8ITzcohCuielzz4l6zmXAhtvtsAeCDyiB8nd4qBLtKp8FKxBwGK/39uCyL/KHsPg8028kCAwEAAaNsMGowDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMB8GA1UdIwQYMBaAFJ0KXJv3AzrlxtXn14Rnu4DscJh6MCIGA1UdEQQbMBmCFyouMTQwLTExMC0xMzYtNzIubmlwLmlvMA0GCSqGSIb3DQEBCwUAA4IBgQCiNugHwlYUIP6sSGS1GqB8qhLgUq+sQkpFbYHy+g/NPwUayg5NvjJJn+JHBRgo5rqcbXm1J/eQ3Dloq7o1fX20lD3w8QOIA4JFrv9OofwF6LD5q+/qohq7rwX61BrelQOjUT0kWqLKKbT8sIosdnFC7KXC8KctT+d8s6aQ41C3kZnxJCW8In81x1t3gFE2dpKa/u/kRls9hZcQVqMX7ICiUrv4z/nzo3N0QOmRfpihazfAyCYMP7Yj1uuI3bN8ZmRkJS6vsn11ZoCApXs1PrdCDcMEsJa5Pg386XbQkIUvrhXCUYQEJkS7rNd5YgeOp17GOmRvdukBy+YJSyYcdCowGiw5TR/o6uxdQW2eqnsdlsF0Q5GbfXC3zAIvoujuAKDHipR8MgmeqcF+NPCjSPrHwwg1XGGfe03oRlpleMYqfAztL+tdXL9s7tmlUR1BybrO2KTVIAyXiF6KbUZZghQy18P2A9cslkBCoCtKpsFiTMt2nm2HyoqSJxVBEmV1oFc=
-  #- name: 127_0_0_1
-  #  key: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQD3eLXDB53QIgh9V2LdsGlPLQKNp6LBlsE3uPNwFr25iOTmr8HZbIm3wtX7Ocw7r6DyX/z+ldoFDMEToQLLLTk+NBrHUgPFFK2ZNupOq+0NqNciqqpAjZdC96d3O5h/3Fz2cSBYWeJ3GwZ6NXnnLZk4mfMvXUxiqeXg6AlzrvLcx21LVL2NFcOKTwrfABKEKG1GltHk8vz33sHWNr1R8nLWP6kCqHWgnMUaft7zm5t1bEAP06yEAHrctCRzM0RHH162dtYywyfi8AFRKli04Ut8RGlLpOcet+SOmhq1shiyKAtoaUCimuV6Xpb2D844Jq2CauTIfC44zpO/Dy7nYrIpAgMBAAECggEBAIEuxxtHB4+VpH7hth9prp+BLHsLzj9mVfijmJijlmia2Hq/tt6r9PwzPgaF9mIV3VuI1gWD7iqCrOt1OoMbWW1qP6xa2NLxZ2m6q/djcjyWLa/QDU3jW9m+c/Ie7w2X2ANhrHPSgBCSz//NmJQgToKogrTv7Cb476JHHmAALJEols9rcIAZuQb5ON7K0nFFfWT9uggwykKuvjAipdoH4ALg9WkmHdz+Twk2IK+srodQfhVYUW3p03PaslNU5QKxz3YcVf4AkYss+V+4V8AMmihkVDUXS7GKu1dVXJ2IK2hSqQD3zwFj6Qk+Xl7jpLI3x3OvlYaHIs6r385iyFHnF80CgYEA+blNMpd6YnWysDW/KXaPk3+/mkU1flesL4kgYvhOmHUIVjXMlb+l2+1zE4re4Js5mqW3p0jIlcl/zg6sUJnDwMiIgeRTRugp/FYFypeh0nIleN1hvbLlfSbdlEF/9zoAJ+JbCXLJAsF8AY8Fs4GwzpLQ/iPTM8HnYl2lbZzPMFMCgYEA/bDq1Mweoxj6nGBi/G7tuZ5oxqG3kJLqTUlcrZIZ45+BLZ+/YRgLnbLkjfueJTzgKnSa5VwPJ5+dJIS5iMGMXB4EoLhRIJB3bd1a7i1/kgZ1Qh6DNc6E5WsCOr/blzH+tR/gfquPFuRwwWhuYwOmtvVa9cfJpYL/eqMKt0vh9BMCgYEAzVn3hVbTKQwoOIa5/9qjDmPKp42qA48M5Loai8gsuWnjxSDQb4P9W/DS5IsZ5BFBOU50y3cqmyHrmwKt6EnJk0pUFpwvbuuTOxFyCbrPM0LyVYWWzmvCEzxWkYebNy3W2vVkb0yYx09cLdvykD5hqj1I5vOGxdT59QWU96IvLkkCgYEAqtpAfQnvRDZpaXF8mLd4gL8Pn16ASuy2wVA8C2VO7D6a+AgTEqfoAs/dH0YrLrb93Xnka72BM1VKtrJwZYq8JbnNshQQBxdkZ2hhefDIbqbMx7fW9CDe3ccgnEJj+EKiYIdUYNrXpjo5OfhEB4kI+UTqeoaP5lkACC7P47xGM2MCgYEAi2zzc8/nKHDiDTkgX/olgrBnJxmeVPveT3ZiDU4H07Bv55dswSzCq99KnJtLI9hhl7y2oduofZCXE7Wlqg4ikNBigaa+2W3PF4MxLXzBFuO/gv4QArbnqYPyNp5sZsyMux8op2qYtXGY3uIWa9/Lp995dy9cdILWMUlHbZVgffo=
-  #  certificate: MIIEYTCCAsmgAwIBAgIQfnjZyoXQRpFTSrJmQ5nw3TANBgkqhkiG9w0BAQsFADCBkTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMTMwMQYDVQQLDCpvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykxOjA4BgNVBAMMMW1rY2VydCBvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykwHhcNMjIwNzIwMDMxMTU2WhcNMjQxMDIwMDMxMTU2WjBeMScwJQYDVQQKEx5ta2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlmaWNhdGUxMzAxBgNVBAsMKm9ncmUwNDAzQHZwbi10YzAzOS5uY2hjLm9yZy50dyAo6I6K5a626ZuLKTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPd4tcMHndAiCH1XYt2waU8tAo2nosGWwTe483AWvbmI5OavwdlsibfC1fs5zDuvoPJf/P6V2gUMwROhAsstOT40GsdSA8UUrZk26k6r7Q2o1yKqqkCNl0L3p3c7mH/cXPZxIFhZ4ncbBno1eectmTiZ8y9dTGKp5eDoCXOu8tzHbUtUvY0Vw4pPCt8AEoQobUaW0eTy/PfewdY2vVHyctY/qQKodaCcxRp+3vObm3VsQA/TrIQAety0JHMzREcfXrZ21jLDJ+LwAVEqWLThS3xEaUuk5x635I6aGrWyGLIoC2hpQKKa5XpelvYPzjgmrYJq5Mh8LjjOk78PLudisikCAwEAAaNnMGUwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMB8GA1UdIwQYMBaAFJ0KXJv3AzrlxtXn14Rnu4DscJh6MB0GA1UdEQQWMBSCEiouMTI3LTAtMC0xLm5pcC5pbzANBgkqhkiG9w0BAQsFAAOCAYEAQVD8K2Yzy2B29i9mCf5muq5tcEeIzCEJx8XO9jhJjeoBkKeDOebV1PAqcWcj56+rfd3qqenzhtTNF6AMCVrx4ONsHKm9x1nh3HnjCSPr8v+uyDv/ifhuySqGFkUY3c53q+pdmMH+RrdFxj+VhU7QL1P2fR7I51RHLPJQ3k3jQQ08dOkPlgvBB4aY76/t3Yn0Ma4XDmpFVqqZm8+hDpTdkZSt0cXe2RWDqnwS3kbDx2bw1m/0blmoGg4eGzKWaQAZT1pwUv9w/30v7Aj7HCOgyQJVp0Ne9c/VtwV3xO9OxiGqJ0ZsLZ1REudD666Pw1kX4XIxHuLMZ8nuRLpeI+P5prvYGVTs8llG8FzMCSBFKqff4tXY9EOypejBf0zlRHJfwkEc7HjCw895vP+5qiu3UYOZrykO1MDQib2gsyUUS9x/X9IoVeJp/MwiPb0QzPTbxzp8SctFzkpqwiljWtTqMRvQHzcsgEYgOKr4OcTUZEsT/sUZXdmHJPGoacGoNmP3
+tls_secret:
+  from_file: false
+  key_file: "files/_wildcard.127-0-0-1.nip.io.key"
+  certificate_file: "files/_wildcard.127-0-0-1.nip.io.crt"
+  key: |-
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2h0PxZPo0JQue
+    2gdXtriyx4smjeboHm2nS4XS393UbOqARixigwkhaaaWEJwbd1JpcgOsZ3CkvoMA
+    WIATnAN+k22hWo+oTnkpRWNDlg24CnSLBUjqr4vhmCWJfD3z6lnaagrJICrj4oNK
+    oTroriJqkoae3nVWrRZCTG3tzO9i41yjSY7d9CSjl7QlfLF1F/5pvfWwkMzlkqW+
+    NnMiY+gAOSHfwCKS6R1GAjT6DV72Ga7Q0YD2eUrZJq4x1/WV4sW1bgyiksF3KVjt
+    vd8vCE83KIQronpc8+Jes5lwIbb7bAHgg8ogfJ3eKgS7SqfBSsQcBiv9/bgsi/yh
+    7D4PNNvJAgMBAAECggEAFOqPOJxPp6YPHNbzPHPt2l7PbU2ZhkPmYONgpHeO3gbV
+    IHnqICfP5gpLUqr4mJUl1nuAPENmPxqtvF5n3tdj9x9B0tmj2K+VZstSwq3xSIO6
+    MywZ3Prc1q8urgCUwNy8CzFXpxCOmaqdTPII5B0ASKId1xq664HOKS7E8hkn3Xbq
+    uKDY297uZWJ7RCXkzHiNn7zxjJfmP5OrLhibfl3MF96CCkfcbpGchKCCvSzJabmy
+    y3p/wNXyHRPQLtUMpeP/z1B1iskWivyh0k8h7jUGYdXZpUUToJa+G4Oqoxj1XUD7
+    UpKs5dE0+xgY0M3q6tz2oDaZ99gWpwET6FlLqjJAAQKBgQDpYoMFtdoYf1eABg6/
+    dKz8u2/KQ/17Y7lZS3Ox2N4sF3cq2etNSMZQIpvDVGN4cNxwgslp3U68FeRvznm6
+    NjYAEBJ4hAAmUru2/ooesI6zJaaHVIdusGAnPyJBY18at5Y5QMbHzrSpLqtJEfOU
+    U1XDuwXOSTmhsPhnfu3y4+J/yQKBgQDINy1uM+c/VLGgOmM1npuc1shL9bIa6pHT
+    Gnr63M5kyr1mdpjzVyfyFNf6ax3qY5c3uEYFH2FoI+87F/3q03vDjk4eZ9cTz5Pa
+    As3joIfFJig3xixmW/sPyfJaV36fmS3qUWeI4bJRHyFV2Cbilsxi2k/9OON/+0dm
+    LuIRgoV8AQKBgQDC8x8vLfC4debJckXvd67ojkmbU5/x6iNxi61g6h7sBc3tZYtA
+    S4IcfkxOpbdRbDU3ZoiIfey/ACqJmpfkDFSfSM2lDd5yJLnY6lbFvAX3b4Pjl6Bp
+    vbsUDZC3viI7Vw+NU6a4UNpoWCuMJgqp49LIZPk8j74san+VNFnfgqw4wQKBgGyK
+    hUWOO9p4hsdPgANMlh4jznhnnYO8EQw5+dvQItA/nQhUWTzqzgwOQrxOn+w2y374
+    lnUmev8jJAmMSyqoNhthJXaUYuQpj4UMKiQyHgjCU+FQvTdMvEHmAE37yvio6Vxz
+    f0aU3L/fuYm5YfNLP0iEBANKeQMj7aQ23HYTpVwBAoGAW8P3E/ciTq7Ykh5wmmte
+    eWEjkbQxHYLNEjfbQWb504jYD0D/d80dirUILbQZ1livHShqkkyTrBneOIAKlAUV
+    2tqorKoXdobNEG538/jdj8kM638L8TjgrnvDeUDFgNK7Lg6++uCF94uYwYVpRfiO
+    Ze2i3j0WbM9hQ4ru09x8mhc=
+    -----END PRIVATE KEY-----
+  certificate: |-
+    -----BEGIN CERTIFICATE-----
+    MIIEZjCCAs6gAwIBAgIQTVIVyUp2m8kd2oikyeJCGDANBgkqhkiG9w0BAQsFADCB
+    kTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMTMwMQYDVQQLDCpvZ3Jl
+    MDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumbiykxOjA4BgNVBAMM
+    MW1rY2VydCBvZ3JlMDQwM0B2cG4tdGMwMDkubmNoYy5vcmcudHcgKOiOiuWutumb
+    iykwHhcNMjIwNDA2MDMwNTEzWhcNMjQwNzA2MDMwNTEzWjBeMScwJQYDVQQKEx5t
+    a2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlmaWNhdGUxMzAxBgNVBAsMKm9ncmUwNDAz
+    QHZwbi10YzAzNC5uY2hjLm9yZy50dyAo6I6K5a626ZuLKTCCASIwDQYJKoZIhvcN
+    AQEBBQADggEPADCCAQoCggEBALaHQ/Fk+jQlC57aB1e2uLLHiyaN5ugebadLhdLf
+    3dRs6oBGLGKDCSFpppYQnBt3UmlyA6xncKS+gwBYgBOcA36TbaFaj6hOeSlFY0OW
+    DbgKdIsFSOqvi+GYJYl8PfPqWdpqCskgKuPig0qhOuiuImqShp7edVatFkJMbe3M
+    72LjXKNJjt30JKOXtCV8sXUX/mm99bCQzOWSpb42cyJj6AA5Id/AIpLpHUYCNPoN
+    XvYZrtDRgPZ5StkmrjHX9ZXixbVuDKKSwXcpWO293y8ITzcohCuielzz4l6zmXAh
+    tvtsAeCDyiB8nd4qBLtKp8FKxBwGK/39uCyL/KHsPg8028kCAwEAAaNsMGowDgYD
+    VR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMB8GA1UdIwQYMBaAFJ0K
+    XJv3AzrlxtXn14Rnu4DscJh6MCIGA1UdEQQbMBmCFyouMTQwLTExMC0xMzYtNzIu
+    bmlwLmlvMA0GCSqGSIb3DQEBCwUAA4IBgQCiNugHwlYUIP6sSGS1GqB8qhLgUq+s
+    QkpFbYHy+g/NPwUayg5NvjJJn+JHBRgo5rqcbXm1J/eQ3Dloq7o1fX20lD3w8QOI
+    A4JFrv9OofwF6LD5q+/qohq7rwX61BrelQOjUT0kWqLKKbT8sIosdnFC7KXC8Kct
+    T+d8s6aQ41C3kZnxJCW8In81x1t3gFE2dpKa/u/kRls9hZcQVqMX7ICiUrv4z/nz
+    o3N0QOmRfpihazfAyCYMP7Yj1uuI3bN8ZmRkJS6vsn11ZoCApXs1PrdCDcMEsJa5
+    Pg386XbQkIUvrhXCUYQEJkS7rNd5YgeOp17GOmRvdukBy+YJSyYcdCowGiw5TR/o
+    6uxdQW2eqnsdlsF0Q5GbfXC3zAIvoujuAKDHipR8MgmeqcF+NPCjSPrHwwg1XGGf
+    e03oRlpleMYqfAztL+tdXL9s7tmlUR1BybrO2KTVIAyXiF6KbUZZghQy18P2A9cs
+    lkBCoCtKpsFiTMt2nm2HyoqSJxVBEmV1oFc=
+    -----END CERTIFICATE-----
 
-DB_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/mysql
-DB_ROOT_PW: ogre0403
-  
-OAUTH_SERVER_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
-
-REDIS_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson
-
-API_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api
-ENABLE_VM_FLAG: false
-
-UI_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
-
-ADMIN_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
-ADMIN_UI: twgc-signup-ui
-
-STATIC_UI_IMAGE: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site
-STATIC_UI: twgc-static-ui
-
-#-------------------------------------------
-# Add by Jimmy
-# ingress controller configuration
-ingress_controller:
-  enabled: false
-  default_backend_image: registry.gitlab.com/nchc-ai/aitrain-deploy/defaultbackend
-  controller_image: registry.gitlab.com/nchc-ai/aitrain-deploy/nginx-ingress-controller
 
 
-#-------------------------------------------
-# Add by Jimmy
-# RFStack related configuration
+storageclass:
+  install: false
+  existing_sc_name: standard
+
+database:
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/mysql
+  version: ""
+  # root_password: "password"
+
+oauth_server:
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/oauth-server
+  version: ""
+  ingress_url: ""
+
+api:
+  image: "registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/api"
+  version: ""
+  redis_image: "registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rejson"
+  redis_version: ""
+  uid_start: 0
+  uid_count: 100000
+  nodeport_url: ""
+
 
 rfstack:
-  enabled: false
+  version: ""
   image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/rfstack
-  OAUTH_CONF_FILE1: server-config.json
 
-#--------------------------------------------
-# Add by Jimmy
-# course operator configuration
 
-COURSE_CRD_IMG: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
+course_operator:
+  version: issue-24-25
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/course-operator
+  
+ui:
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui
+  ingress_url: ""
 
-#-------------------------------------------
-replicaCount: 1
+admin_ui:
+  name: twgc-signup-ui
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/ui-signup
+  ingress_url: ""
 
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  create: true
-  annotations: {}
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-
-securityContext: {}
-
-service:
-  type: NodePort
-  port: 8080
-
-ingress:
-  enabled: false
-  hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
-
-resources: {}
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+static_ui:
+  name: twgc-static-ui
+  version: ""
+  image: registry.gitlab.com/nchc-ai/aitrain-deploy/twgc/static-site
+  ingress_url: ""

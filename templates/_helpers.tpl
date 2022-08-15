@@ -1,90 +1,181 @@
 {{/* Existing StorageClass name */}}
 {{- define "SYSTEM_SC_NAME"}}
-{{- printf "%s" .Values.EXISTING_SC_NAME }}
+{{- printf "%s" .Values.storageclass.existing_sc_name }}
 {{- end }}
 
 {{- define "COURSE_SC_NAME"}}
-{{- printf "%s" .Values.EXISTING_SC_NAME }}
+{{- printf "%s" .Values.storageclass.existing_sc_name }}
 {{- end }}
 
 {{- define "UID_RANGE"}}
-{{- div .Values.UID_START .Values.UID_COUNT }}
+{{- printf "%0.0f/%0.0f" .Values.api.uid_start .Values.api.uid_count }}
 {{- end }}
 
 {{/* URL for OAuth server */}}
 {{- define "OAUTH_SERVER_URL"}}
-{{- printf "%s-%s-oauth.%s" .Values.VERSION .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- if ne .Values.oauth_server.ingress_url "" }}
+{{- printf "%s" .Values.oauth_server.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-oauth.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
-{{/* URL for static UI */}}
+{{/* URL for UI */}}
 {{- define "UI_URL"}}
-{{- printf "%s-%s-ui.%s" .Values.VERSION .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- if ne .Values.ui.ingress_url "" }}
+{{- printf "%s" .Values.ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-ui.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* NodePort Endpoint */}}
 {{- define "NODEPORT_URL"}}
-{{- printf "%s-%s-nodeport.%s" .Values.VERSION .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- if ne .Values.api.nodeport_url "" }}
+{{- printf "%s" .Values.api.nodeport_url }}
+{{- else }}
+{{- printf "%s-%s-nodeport.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* URL for admin UI */}}
 {{- define "ADMIN_UI_URL"}}
-{{- printf "%s-%s-admin.%s" .Values.VERSION .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- if ne .Values.admin_ui.ingress_url "" }}
+{{- printf "%s" .Values.admin_ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-admin.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* URL for static UI */}}
 {{- define "STATIC_UI_URL"}}
-{{- printf "%s-%s-static.%s" .Values.VERSION .Values.NS_PREFIX .Values.DOAMINNAME }}
+{{- if ne .Values.static_ui.ingress_url "" }}
+{{- printf "%s" .Values.static_ui.ingress_url }}
+{{- else }}
+{{- printf "%s-%s-static.%s" (.Values.common.version | replace "." "-") .Values.common.namespace_prefix .Values.common.domian_name }}
+{{- end }}
 {{- end }}
 
 {{/* Installation Version */}}
-{{- define "VERSION"}}
-{{- printf "%s" .Values.VERSION | replace "-" "." }}
-{{- end }}
+
 
 {{/* IMG Version */}}
-{{- define "API_IMG_VER"}}
-{{- printf "%s" .Values.VERSION | replace "-" "." }}
+{{- define "OAUTH_SERVER_IMG_VER"}}
+{{- if ne .Values.oauth_server.version "" }}
+{{- printf "%s" .Values.oauth_server.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
+
+
+{{- define "API_IMG_VER"}}
+{{- if ne .Values.api.version "" }}
+{{- printf "%s" .Values.api.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
+{{- define "REDIS_IMG_VER"}}
+{{- if ne .Values.api.redis_version "" }}
+{{- printf "%s" .Values.api.redis_version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
+
 {{- define "UI_IMG_VER"}}
-{{- printf "%s" .Values.VERSION | replace "-" "." }}
+{{- if ne .Values.ui.version "" }}
+{{- printf "%s" .Values.ui.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{- define "RFSTACK_IMG_VER"}}
-{{- printf "%s" .Values.VERSION | replace "-" "." }}
+{{- if ne .Values.rfstack.version "" }}
+{{- printf "%s" .Values.rfstack.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
 {{- define "COURSE_IMG_VER"}}
-{{- printf "%s" .Values.VERSION | replace "-" "." }}
+{{- if ne .Values.course_operator.version "" }}
+{{- printf "%s" .Values.course_operator.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
 {{- end }}
 
-{{/* OAuth provider type */}}
-{{- define "OAUTH_TYPE"}}
-{{- if eq .Values.OAUTH_TYPE "google-oauth" }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
-{{- else if eq .Values.OAUTH_TYPE "github-oauth" }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
+{{- define "ADMIN_UI_IMG_VER"}}
+{{- if ne .Values.admin_ui.version "" }}
+{{- printf "%s" .Values.admin_ui.version }}
 {{- else }}
-{{- printf "%s" .Values.OAUTH_TYPE }}
+{{- printf "%s" .Values.common.version }}
 {{- end }}
 {{- end }}
+
+
+{{- define "STATIC_UI_IMG_VER"}}
+{{- if ne .Values.static_ui.version "" }}
+{{- printf "%s" .Values.static_ui.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
+
+{{- define "DB_IMG_VER"}}
+{{- if ne .Values.database.version "" }}
+{{- printf "%s" .Values.database.version }}
+{{- else }}
+{{- printf "%s" .Values.common.version }}
+{{- end }}
+{{- end }}
+
 
 {{/* DNS Server */}}
 {{- define "K8S_DNS_SERVER"}}
-{{- if eq .Values.K8S_DNS_SERVER "OCP" }}
-{{- printf "172.30.0.10" }}
+{{- if ne .Values.common.k8s_dns_server "" }}
+{{- printf .Values.common.k8s_dns_server }}
 {{- else }}
-{{- printf "10.12.0.10" }}
+{{- printf "10.96.0.10" }}
 {{- end }}
 {{- end }}
 
 {{/* SVC */}}
 {{- define "ADMIN_UI_SVC"}}
-{{- printf "%s-svc" .Values.ADMIN_UI }}
+{{- printf "%s-svc" .Values.admin_ui.name }}
 {{- end }}
 
 {{- define "STATIC_UI_SVC"}}
-{{- printf "%s-svc" .Values.STATIC_UI }}
+{{- printf "%s-svc" .Values.static_ui.name }}
+{{- end }}
+
+{{/*OAUTH CONFIGUATION*/}}
+{{- define "RFSTACK_OAUTH_CONF"}}
+{{- if eq .Values.common.oauth_type "google-oauth" }}
+{{- printf "server-config-google.json" }}
+{{- else if eq .Values.common.oauth_type "github-oauth" }}
+{{- printf "server-config-github.json" }}
+{{- else }}
+{{- printf "server-config.json" }}
+{{- end }}
+{{- end }}
+
+
+{{- define "API_OAUTH_CONF"}}
+{{- if eq .Values.common.oauth_type "google-oauth" }}
+{{- printf "api-config-google.json" }}
+{{- else if eq .Values.common.oauth_type "github-oauth" }}
+{{- printf "api-config-github.json" }}
+{{- else }}
+{{- printf "api-config.json" }}
+{{- end }}
 {{- end }}
 
 {{/* Expand the name of the chart. */}}
