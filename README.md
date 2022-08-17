@@ -15,18 +15,30 @@ helm repo index [folder name]
 ```
 ## Parameters
 The following table lists the helpers available in the library
+
+### common
 | Key | Description | Default |
 | --- | --- | --- |
-| *NS_PREFIX* | Name Space Prefix | `aitrain` |
-| *VERSION* | Version Type [ v2021-12 , v2022-07 ] | `v2022-07` |
-| *OAUTH_TYPE* | OAuth Provider Type [ go-oauth , google-oauth , github-oauth ] | `go-oauth` |
-| *DOAMINNAME* | URL Domian | `nchc.org.tw` |
-| *EXISTING_SC_NAME* | Storage Class Name | `standard` |
-| *INGRESS_CLASS* | Ingress Class Name | `nginx` |
-| *DEST_CLUSTER_INPUT* | Destion Cluster Type [ OpenShift: OCP , Kubernetes: K8S ] | `K8S` |
-| *K8S_DNS_SERVER* | DNS Server | `"10.43.0.10"` |
-| *ingress_controller.enabled* | Ingress Controller Configuration | `false` |
-| *rfstack.enabled* | RFStack Related Configuration | `false` |
+| *common.destination* | Destion Cluster Type [ OpenShift: OCP , Kubernetes: K8S ] | `kubernetes` |
+| *common.namespace_prefix* | Name Space Prefix | `aitrain` |
+| *common.version* | Version Type [ v2021.12 , v2022.07 ] | `v2022.07` |
+| *common.domian_name* | URL Domian | `"127-0-0-1.nip.io"` |
+| *common.ingress_class* | Ingress Class Name | `nginx` |
+| *common.k8s_dns_server* | DNS Server | `""` |
+| *common.enable_vm* | VM Related Configuration | `false` |
+| *common.oauth_type* | OAuth Provider Type [ go-oauth , google-oauth , github-oauth ] | `go-oauth` |
+
+### storageclass
+| Key | Description | Default |
+| --- | --- | --- |
+| *storageclass.install* | Install Storage Class | `false` |
+| *storageclass.existing_sc_name* | Storage Class Name | `standard` |
+
+### api
+| Key | Description | Default |
+| --- | --- | --- |
+| *api.uid_start* | UID Start Value | `0` |
+| *api.uid_count* | UID Count Value | `100000` |
 
 **Useful links**
 - https://helm.sh/docs/intro/using_helm/
